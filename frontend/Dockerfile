@@ -1,5 +1,5 @@
 # Etapa 1: build del frontend
-FROM node:18 as build
+FROM node:20.12.2 as build
 
 WORKDIR /app
 COPY . /app/
