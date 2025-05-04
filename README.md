@@ -54,6 +54,19 @@ Esto levantará el frontend en `http://localhost:5173`
 
 ---
 
+##  Variables de entorno
+
+El archivo `.env` se encuentra en `backend/` y **no debe subirse** al repositorio.
+Usa el archivo `.env.example` como plantilla:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Edita el valor de `SECRET_KEY` por uno seguro.
+
+---
+
 ##  Despliegue con Docker (recomendado)
 
 ### 1. Asegúrate de tener Docker Desktop instalado y en ejecución
@@ -67,19 +80,6 @@ docker compose up --build
 Esto levantará:
 - Backend en: `http://localhost:8000`
 - Frontend en: `http://localhost`
-
----
-
-##  Variables de entorno
-
-El archivo `.env` se encuentra en `backend/` y **no debe subirse** al repositorio.
-Usa el archivo `.env.example` como plantilla:
-
-```bash
-cp backend/.env.example backend/.env
-```
-
-Edita el valor de `SECRET_KEY` por uno seguro.
 
 ---
 

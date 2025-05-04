@@ -3,6 +3,7 @@ FROM node:20.12.2 as build
 
 WORKDIR /app
 COPY . /app/
+COPY .env.production .env
 RUN npm install
 RUN npm run build
 
