@@ -5,10 +5,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copia el código del backend al contenedor
-COPY backend/ /app/
+COPY . /app/
 
 # Instala dependencias del backend
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.prod.txt
 
 # Expone el puerto para el backend
 EXPOSE 8000
