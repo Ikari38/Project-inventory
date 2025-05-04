@@ -2,57 +2,57 @@ import { useEffect, useState } from 'react'
 import EntityPanel from './EntityPanel'
 import api from '../api/axios'
 
-interface Client {
+interface Element {
   id: number
   name: string
 }
 
-export default function ClientManager() {
-  const [clients, setClients] = useState<Client[]>([])
-  const [newName, setNewName] = useState('')
+export default function ElementManager() {
+  const [elements, setElements] = useState<Element[]>([])
+  const [newElement, setNewElement] = useState('')
 
   useEffect(() => {
-    fetchClients()
+    fetchElements()
   }, [])
 
-  const fetchClients = async () => {
+  const fetchElements = async () => {
     try {
-      const res = await api.get<Client[]>('clients/')
-      setClients(res.data)
-    } catch (error) {
-      console.error('Error fetching clients', error)
+      const res = await api.get<Element[]>('elements/')
+      setElements(res.data)
+    } catch (err) {
+      console.error('Error fetching elements', err)
     }
   }
 
-  const addClient = async () => {
-    if (!newName.trim()) return
+  const addElement = async () => {
+    if (!newElement.trim()) return
     try {
-      await api.post('clients/', { name: newName })
-      setNewName('')
-      fetchClients()
-    } catch (error) {
-      console.error('Error adding client', error)
+      await api.post('elements/', { name: newElement })
+      setNewElement('')
+      fetchElements()
+    } catch (err) {
+      console.error('Error adding element', err)
     }
   }
 
-  const deleteClient = async (id: number) => {
+  const deleteElement = async (id: number) => {
     try {
-      await api.delete(`clients/${id}/`)
-      fetchClients()
-    } catch (error) {
-      console.error('Error deleting client', error)
+      await api.delete(`elements/${id}/`)
+      fetchElements()
+    } catch (err) {
+      console.error('Error deleting element', err)
     }
   }
 
   return (
-    <EntityPanel title="Clients" onAdd={addClient}>
+    <EntityPanel title="Elements" onAdd={addElement}>
       <div className="flex gap-2 mb-4">
         <input
           type="text"
+          placeholder="Element name"
           className="flex-1 px-4 py-2 rounded bg-white/10 border border-white/20 text-white placeholder-white/60"
-          placeholder="New client name"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
+          value={newElement}
+          onChange={(e) => setNewElement(e.target.value)}
         />
       </div>
 
@@ -66,20 +66,20 @@ export default function ClientManager() {
             </tr>
           </thead>
           <tbody>
-            {clients.length === 0 ? (
+            {elements.length === 0 ? (
               <tr>
                 <td colSpan={3} className="py-4 text-center text-white/60">
-                  No clients found.
+                  No elements found.
                 </td>
               </tr>
             ) : (
-              clients.map((client) => (
-                <tr key={client.id} className="border-b border-white/10">
-                  <td className="py-2">{client.id}</td>
-                  <td className="py-2">{client.name}</td>
+              elements.map((el) => (
+                <tr key={el.id} className="border-b border-white/10">
+                  <td className="py-2">{el.id}</td>
+                  <td className="py-2">{el.name}</td>
                   <td className="py-2">
                     <button
-                      onClick={() => deleteClient(client.id)}
+                      onClick={() => deleteElement(el.id)}
                       className="text-sm text-red-400 hover:text-red-200 transition"
                     >
                       Delete
